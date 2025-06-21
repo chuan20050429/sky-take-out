@@ -31,7 +31,7 @@
         order by d.create_time desc
     </select>
 
-        <update id="update">
+    <update id="update">
         update dish
         <set>
             <if test="name != null">
@@ -61,5 +61,23 @@
         </set>
         where id = #{id}
         </update>
+
+    <select id="list" resultType="Dish" parameterType="Dish">
+        SELECT * FROM dish
+        <where>
+            <if test="name != null">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+
 
 </mapper>
